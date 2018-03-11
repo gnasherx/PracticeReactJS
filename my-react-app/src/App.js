@@ -42,6 +42,30 @@ class App extends Component {
   };
 
   render() {
+    let persons = null;
+    if (this.state.showPerson) {
+      persons = (
+        <div>
+          <Person
+            name={this.state.persons[0].name}
+            age={this.state.persons[0].age}
+          />
+          <Person
+            name={this.state.persons[1].name}
+            age={this.state.persons[1].age}
+            click={this.switchNameHandler.bind(this, "gnasherx")} // bind is efficient way
+          >
+            I love my Computer
+          </Person>
+          <Person
+            name={this.state.persons[2].name}
+            age={this.state.persons[2].age}
+            typeNewName={this.nameChangeHandler}
+          />
+        </div>
+      );
+    }
+
     return (
       <div className="App">
         <h1>This is ReactJS</h1>
@@ -50,27 +74,7 @@ class App extends Component {
         >
           Switch Name
         </button>
-        {/* this is efficient way of toggling the person */}
-        {this.state.showPerson && (
-          <div>
-            <Person
-              name={this.state.persons[0].name}
-              age={this.state.persons[0].age}
-            />
-            <Person
-              name={this.state.persons[1].name}
-              age={this.state.persons[1].age}
-              click={this.switchNameHandler.bind(this, "gnasherx")} // bind is efficient way
-            >
-              I love my Computer
-            </Person>
-            <Person
-              name={this.state.persons[2].name}
-              age={this.state.persons[2].age}
-              typeNewName={this.nameChangeHandler}
-            />
-          </div>
-        )}
+        {persons}
       </div>
     );
   }
