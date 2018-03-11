@@ -50,7 +50,8 @@ class App extends Component {
         >
           Switch Name
         </button>
-        {this.state.showPerson ? (
+        {/* this is efficient way of toggling the person */}
+        {this.state.showPerson && (
           <div>
             <Person
               name={this.state.persons[0].name}
@@ -69,7 +70,7 @@ class App extends Component {
               typeNewName={this.nameChangeHandler}
             />
           </div>
-        ) : null}
+        )}
       </div>
     );
   }
