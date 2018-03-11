@@ -8,7 +8,8 @@ class App extends Component {
       { name: "Sampada", age: 21 },
       { name: "Ganesh", age: 20 },
       { name: "Akash", age: 20 }
-    ]
+    ],
+    showPerson: false
   };
 
   // If assign function as value to switchNameHandler then
@@ -34,31 +35,41 @@ class App extends Component {
     });
   };
 
+  togglePersonHandler = () => {
+    this.setState({
+      showPerson: !this.state.showPerson
+    });
+  };
+
   render() {
     return (
       <div className="App">
         <h1>This is ReactJS</h1>
         <button
-          onClick={() => this.switchNameHandler("Ganesh Ramchandra Pawar")} // In-efficient way using arrow function
+          onClick={this.togglePersonHandler} // In-efficient way using arrow function
         >
           Switch Name
         </button>
-        <Person
-          name={this.state.persons[0].name}
-          age={this.state.persons[0].age}
-        />
-        <Person
-          name={this.state.persons[1].name}
-          age={this.state.persons[1].age}
-          click={this.switchNameHandler.bind(this, "gnasherx")} // bind is efficient way
-        >
-          I love my Computer
-        </Person>
-        <Person
-          name={this.state.persons[2].name}
-          age={this.state.persons[2].age}
-          typeNewName={this.nameChangeHandler}
-        />
+        {this.state.showPerson ? (
+          <div>
+            <Person
+              name={this.state.persons[0].name}
+              age={this.state.persons[0].age}
+            />
+            <Person
+              name={this.state.persons[1].name}
+              age={this.state.persons[1].age}
+              click={this.switchNameHandler.bind(this, "gnasherx")} // bind is efficient way
+            >
+              I love my Computer
+            </Person>
+            <Person
+              name={this.state.persons[2].name}
+              age={this.state.persons[2].age}
+              typeNewName={this.nameChangeHandler}
+            />
+          </div>
+        ) : null}
       </div>
     );
   }
