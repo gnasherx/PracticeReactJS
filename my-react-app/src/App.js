@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import Person from "./person/Person";
+import { precompile } from "handlebars";
 
 class App extends Component {
   state = {
@@ -16,6 +17,24 @@ class App extends Component {
     // const persons = this.state.persons.slice(); //slice() will return a new array
     const persons = [...this.state.persons]; // spread operator
     persons.splice(personIndex, 1);
+    this.setState({ persons: persons });
+  };
+
+  nameChangeHandler = (event, id) => {
+    // findIndex take function as input same as map and execute that function on
+    // every item and return index
+    const personIndex = this.state.persons.findIndex(p => {
+      return p.id === id;
+    });
+
+    const person = {
+      ...this.state.persons[personIndex]
+    };
+
+    person.name = event.target.value;
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+
     this.setState({ persons: persons });
   };
 
@@ -37,6 +56,7 @@ class App extends Component {
                 key={person.id}
                 name={person.name}
                 age={person.age}
+                typeNewName={event => this.nameChangeHandler(event, person.id)}
               />
             );
           })}
