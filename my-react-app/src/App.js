@@ -13,7 +13,8 @@ class App extends Component {
   };
 
   deletePersonHandler = personIndex => {
-    const persons = this.state.persons;
+    // const persons = this.state.persons.slice(); //slice() will return a new array
+    const persons = [...this.state.persons]; // spread operator
     persons.splice(personIndex, 1);
     this.setState({ persons: persons });
   };
