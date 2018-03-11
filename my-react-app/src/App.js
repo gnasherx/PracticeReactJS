@@ -12,27 +12,10 @@ class App extends Component {
     showPerson: false
   };
 
-  // If assign function as value to switchNameHandler then
-  // it is called as method (aka properties)
-  switchNameHandler = newName => {
-    // console.log("Was Clicked!");
-    this.setState({
-      persons: [
-        { name: "Sampada", age: 21 },
-        { name: newName, age: 20 },
-        { name: "Akash", age: 20 }
-      ]
-    });
-  };
-
-  nameChangeHandler = event => {
-    this.setState({
-      persons: [
-        { name: "Sampada", age: 21 },
-        { name: "Ganesh", age: 20 },
-        { name: event.target.value, age: 20 }
-      ]
-    });
+  deletePersonHandler = personIndex => {
+    const persons = this.state.persons;
+    persons.splice(personIndex, 1);
+    this.setState({ persons: persons });
   };
 
   togglePersonHandler = () => {
@@ -46,22 +29,16 @@ class App extends Component {
     if (this.state.showPerson) {
       persons = (
         <div>
-          <Person
-            name={this.state.persons[0].name}
-            age={this.state.persons[0].age}
-          />
-          <Person
-            name={this.state.persons[1].name}
-            age={this.state.persons[1].age}
-            click={this.switchNameHandler.bind(this, "gnasherx")} // bind is efficient way
-          >
-            I love my Computer
-          </Person>
-          <Person
-            name={this.state.persons[2].name}
-            age={this.state.persons[2].age}
-            typeNewName={this.nameChangeHandler}
-          />
+          {this.state.persons.map((person, index) => {
+            return (
+              <Person
+                click={this.deletePersonHandler.bind(index)}
+                key={person.name}
+                name={person.name}
+                age={person.age}
+              />
+            );
+          })}
         </div>
       );
     }
